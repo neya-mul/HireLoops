@@ -94,7 +94,7 @@ export default function Navbar() {
                             </Link>
 
                             <Link
-                                href="#"
+                                href="/signup"
                                 className="bg-[#5850ec] hover:bg-[#453e97] text-white font-medium px-5 py-2.5 rounded-xl transition-all duration-200 shadow-[0_0_20px_rgba(88,80,236,0.25)]"
                             >
                                 Get Started
