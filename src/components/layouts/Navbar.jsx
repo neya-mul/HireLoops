@@ -9,7 +9,7 @@ export default function Navbar() {
 
     return (
         // Root container matching the dark background of the page
-        <nav className="w-full bg-[#111111] px-4 py-6 sticky top-0 z-50">
+        <nav className="w-full bg-[#0b0b0b] px-4 py-6 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto">
                 {/* Floating Navigation Card */}
                 <header className="flex h-16 items-center justify-between bg-[#161616] border border-neutral-800/60 rounded-2xl px-6 shadow-xl">
