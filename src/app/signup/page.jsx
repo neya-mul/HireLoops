@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 // Gravity UI Icons
 import { Eye, EyeSlash, LogoFacebook } from '@gravity-ui/icons';
+import { authClient } from '@/lib/auth-client';
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,33 +15,43 @@ export default function SignUpPage() {
     agreeTerms: false,
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log('Submitting Registration:', formData);
+
+    const { data, error } = await authClient.signUp.email({
+      name: formData.fullName,
+      email: formData.email,
+      password: formData.password,
+      callbackURL: '/signin',
+    });
+    console.log(data);
+    
+
   };
 
   return (
     // 1. Fixed Main Screen Viewport bounds wrapper context
     <main className="relative w-full py-20 bg-[#0a0a0a] text-white flex items-center justify-center overflow-x-hidden overflow-y-auto">
-      
+
       {/* Background ambient glow effect */}
       <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-indigo-600/10 blur-[130px] rounded-full pointer-events-none z-0" />
       <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-purple-600/5 blur-[100px] rounded-full pointer-events-none z-0" />
 
       {/* 2. Added deep layout container to block external relative components pushing card down */}
       <div className="w-full max-w-md flex flex-col items-center justify-center my-auto z-10">
-        
+
         {/* Auth Card Container - Added macro card hover scale, border color shift, and ambient shadow flare */}
         <div className="w-full bg-[#121212]/90 border border-neutral-800/80 hover:border-neutral-700/60 rounded-2xl p-8 backdrop-blur-xl transition-all duration-300 ease-out hover:scale-[1.01] shadow-[0_0_50px_rgba(0,0,0,0.8)] hover:shadow-[0_0_60px_rgba(88,80,236,0.1)]">
-          
+
           {/* Logo and Header text */}
           <div className="flex flex-col items-center text-center mb-8">
             <Link href="/" className="mb-4 inline-block transition-transform duration-200 hover:scale-105">
-              <Image 
-                src="/recources/logo.png" 
-                alt="Hireloop Logo" 
-                width={130} 
-                height={34} 
+              <Image
+                src="/recources/logo.png"
+                alt="Hireloop Logo"
+                width={130}
+                height={34}
                 className="object-contain"
                 priority
               />
@@ -55,7 +66,7 @@ export default function SignUpPage() {
 
           {/* Sign Up Form */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            
+
             {/* Full Name Input */}
             <div className="flex flex-col gap-1.5">
               <label htmlFor="fullName" className="text-xs font-medium text-neutral-400 tracking-wide uppercase">
@@ -150,7 +161,7 @@ export default function SignUpPage() {
           {/* Social Provider Logins */}
           <div className="grid grid-cols-2 gap-3">
             {/* Google Sign-up Button - Added border lightning and click response */}
-            <button 
+            <button
               type="button"
               className="flex items-center justify-center gap-2.5 h-11 rounded-xl bg-[#181818] border border-neutral-800/80 hover:bg-[#1f1f1f] hover:border-neutral-700 text-neutral-300 hover:text-white text-sm font-medium transition-all duration-200 active:scale-[0.97]"
             >
@@ -174,9 +185,9 @@ export default function SignUpPage() {
               </svg>
               <span>Google</span>
             </button>
-            
+
             {/* Facebook Sign-up Button - Added border lightning and click response */}
-            <button 
+            <button
               type="button"
               className="flex items-center justify-center gap-2 h-11 rounded-xl bg-[#181818] border border-neutral-800/80 hover:bg-[#1f1f1f] hover:border-neutral-700 text-neutral-300 hover:text-white text-sm font-medium transition-all duration-200 active:scale-[0.97]"
             >
